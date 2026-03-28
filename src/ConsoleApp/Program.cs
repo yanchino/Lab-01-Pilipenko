@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleApp.Modules;
 
 namespace ConsoleApp
 {
@@ -6,30 +7,19 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите строку для подсчета русских гласных:");
-            string input = Console.ReadLine();
+            // 1. Ввод
+            string userInput = InputModule.ReadString("Введите строку на русском языке:");
 
-            
-            string vowels = "аеёиоуыэюя";
-            int count = 0;
-
-            if (!string.IsNullOrEmpty(input))
+            // 2. Валидация
+            if (ValidationModule.IsNotEmpty(userInput))
             {
-                
-                string lowerInput = input.ToLower();
-
-                foreach (char c in lowerInput)
-                {
-                    if (vowels.Contains(c))
-                    {
-                        count++;
-                    }
-                }
+                // 3. Обработка и вывод
+                ProcessingModule.CountAndPrintVowels(userInput);
             }
-
-            Console.WriteLine($"Количество гласных букв: {count}");
-            Console.WriteLine("\nНажмите любую клавишу для выхода...");
-            Console.ReadKey();
+            else
+            {
+                Console.WriteLine("Ошибка: строка не должна быть пустой!");
+            }
         }
     }
 }
